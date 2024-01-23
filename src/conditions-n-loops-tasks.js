@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,14 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a >= b && a >= c) {
+    return a;
+  }
+  if (b >= a && b >= c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -60,8 +66,12 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -82,15 +92,31 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  const sides = [a, b, c];
+
+  for (let i = 0; i < sides.length; i += 1) {
+    if (sides[i] === 0) {
+      return false;
+    }
+  }
+
+  for (let i = 0; i < sides.length; i += 1) {
+    for (let j = i + 1; j < sides.length; j += 1) {
+      if (sides[i] === sides[j] && sides[i] + sides[j] >= sides[3 - i - j]) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
- * @param {number} num - The number to convert.
+ * @param {number} num1 - The number to convert.
  * @return {string} The Roman numeral representation of the number.
  *
  * @example:
@@ -100,15 +126,57 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNumerals = [
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+    'IX',
+    'X',
+    'XI',
+    'XII',
+    'XIII',
+    'XIV',
+    'XV',
+    'XVI',
+    'XVII',
+    'XVIII',
+    'XIX',
+    'XX',
+    'XXI',
+    'XXII',
+    'XXIII',
+    'XXIV',
+    'XXV',
+    'XXVI',
+    'XXVII',
+    'XXVIII',
+    'XXIX',
+    'XXX',
+    'XXXI',
+    'XXXII',
+    'XXXIII',
+    'XXXIV',
+    'XXXV',
+    'XXXVI',
+    'XXXVII',
+    'XXXVIII',
+    'XXXIX',
+  ];
+
+  return romanNumerals[num - 1];
 }
 
 /**
  * Converts a number to a string, replacing digits with words.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
- * @param {string} numberStr - The number as a string.
+ * @param {string} numberStr1 - The number as a string.
  * @return {string} The number with digits replaced by words.
  *
  * @example:
@@ -119,8 +187,68 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const digitWords = {
+    0: 'zero',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+  };
+
+  const numberStr1 = numberStr;
+
+  let result = '';
+  let isNegative = false;
+
+  if (numberStr1[0] === '-') {
+    isNegative = true;
+  }
+
+  let isDecimal = false;
+  for (let i = isNegative ? 1 : 0; i < numberStr1.length; i += 1) {
+    const char = numberStr1[i];
+
+    switch (char) {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        result += `${digitWords[char]} `;
+        break;
+      case '.':
+      case ',':
+        if (!isDecimal) {
+          result += 'point ';
+          isDecimal = true;
+        }
+        break;
+      default:
+    }
+  }
+
+  if (isNegative) {
+    result = `minus ${result}`;
+  }
+
+  let final = '';
+  if (result[result.length - 1] === ' ') {
+    for (let i = 0; i < result.length - 1; i += 1) {
+      final += result[i];
+    }
+  }
+  return final ?? result;
 }
 
 /**
@@ -135,8 +263,17 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const { length } = str;
+  const middle = Math.floor(length / 2);
+
+  for (let i = 0; i < middle; i += 1) {
+    if (str[i] !== str[length - 1 - i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -153,8 +290,16 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  const { length } = str;
+
+  for (let i = 0; i < length; i += 1) {
+    if (str[i] === letter && (str[i] === letter || str[i] === letter)) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -172,8 +317,19 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let tempNum = num;
+
+  while (tempNum > 0) {
+    const currentDigit = tempNum % 10;
+    if (currentDigit === digit) {
+      return true;
+    }
+
+    tempNum = Math.floor(tempNum / 10);
+  }
+
+  return false;
 }
 
 /**
@@ -189,8 +345,25 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      leftSum += arr[j];
+    }
+
+    for (let k = i + 1; k < arr.length; k += 1) {
+      rightSum += arr[k];
+    }
+
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -214,8 +387,49 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+
+  let counter = 1;
+  let startRow = 0;
+  let endRow = size - 1;
+  let startCol = 0;
+  let endCol = size - 1;
+
+  while (startRow <= endRow && startCol <= endCol) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      matrix[startRow][i] = counter;
+      counter += 1;
+    }
+    startRow += 1;
+
+    for (let i = startRow; i <= endRow; i += 1) {
+      matrix[i][endCol] = counter;
+      counter += 1;
+    }
+    endCol -= 1;
+
+    for (let i = endCol; i >= startCol; i -= 1) {
+      matrix[endRow][i] = counter;
+      counter += 1;
+    }
+    endRow -= 1;
+
+    for (let i = endRow; i >= startRow; i -= 1) {
+      matrix[i][startCol] = counter;
+      counter += 1;
+    }
+    startCol += 1;
+  }
+
+  return matrix;
 }
 
 /**
@@ -223,7 +437,7 @@ function getSpiralMatrix(/* size */) {
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
  * Usage of String and Array class methods is not allowed in this task.
  *
- * @param {number[][]} matrix - The matrix to rotate.
+ * @param {number[][]} matrix1 - The matrix to rotate.
  * @return {number[][]} The rotated matrix.
  *
  * @example:
@@ -233,8 +447,32 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const matrix1 = matrix;
+  if (!matrix1 || matrix1.length === 0 || matrix1[0].length === 0) {
+    throw new Error('Invalid matrix');
+  }
+
+  const rows = matrix1.length;
+  const cols = matrix1[0].length;
+
+  for (let i = 0; i < rows; i += 1) {
+    for (let j = i + 1; j < cols; j += 1) {
+      const temp = matrix1[i][j];
+      matrix1[i][j] = matrix1[j][i];
+      matrix1[j][i] = temp;
+    }
+  }
+
+  for (let i = 0; i < rows; i += 1) {
+    for (let j = 0; j < Math.floor(cols / 2); j += 1) {
+      const temp = matrix1[i][j];
+      matrix1[i][j] = matrix1[i][cols - 1 - j];
+      matrix1[i][cols - 1 - j] = temp;
+    }
+  }
+
+  return matrix1;
 }
 
 /**
@@ -243,7 +481,7 @@ function rotateMatrix(/* matrix */) {
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
  *
- * @param {number[]} arr - The array to sort.
+ * @param {number[]} arr1 - The array to sort.
  * @return {number[]} The sorted array.
  *
  * @example:
@@ -251,8 +489,44 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const arr1 = arr;
+  if (!arr1 || arr1.length <= 1) {
+    return arr1;
+  }
+
+  function swap(i, j) {
+    const temp = arr1[i];
+    arr1[i] = arr1[j];
+    arr1[j] = temp;
+  }
+
+  function partition(left, right) {
+    const pivot = arr1[right];
+    let i = left - 1;
+
+    for (let j = left; j < right; j += 1) {
+      if (arr1[j] <= pivot) {
+        i += 1;
+        swap(i, j);
+      }
+    }
+
+    swap(i + 1, right);
+    return i + 1;
+  }
+
+  function quicksort(left, right) {
+    if (left < right) {
+      const pivotIndex = partition(left, right);
+      quicksort(left, pivotIndex - 1);
+      quicksort(pivotIndex + 1, right);
+    }
+  }
+
+  quicksort(0, arr1.length - 1);
+
+  return arr1;
 }
 
 /**
@@ -260,7 +534,7 @@ function sortByAsc(/* arr */) {
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
  * Usage of Array class methods is not allowed in this task.
  *
- * @param {string} str - The string to shuffle.
+ * @param {string} str1 - The string to shuffle.
  * @param {number} iterations - The number of iterations to perform the shuffle.
  * @return {string} The shuffled string.
  *
@@ -272,8 +546,36 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let myStr = str;
+  const myStrsAr = [myStr];
+
+  for (let j = 0; j < iterations; j += 1) {
+    let newStr = '';
+    let newStr1 = '';
+
+    for (let i = 0; i < myStr.length; i += 1) {
+      if (i % 2 === 0) {
+        newStr += myStr[i];
+      } else {
+        newStr1 += myStr[i];
+      }
+    }
+
+    myStr = newStr + newStr1;
+
+    if (j !== iterations - 1 && myStr === myStrsAr[0]) {
+      myStrsAr[j + 1] = myStr;
+      myStr = myStrsAr[iterations % (j + 1)];
+      break;
+    }
+
+    if (j !== iterations - 1) {
+      myStrsAr[j + 1] = myStr;
+    }
+  }
+
+  return myStr;
 }
 
 /**
@@ -293,8 +595,56 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  if (number < 10) {
+    return number;
+  }
+
+  const digits = [];
+  let tempNumber = number;
+
+  while (tempNumber > 0) {
+    digits.push(tempNumber % 10);
+    tempNumber = Math.floor(tempNumber / 10);
+  }
+
+  digits.reverse();
+
+  let i = digits.length - 2;
+  while (i >= 0 && digits[i] >= digits[i + 1]) {
+    i -= 1;
+  }
+
+  if (i === -1) {
+    return number;
+  }
+
+  let j = digits.length - 1;
+  while (digits[j] <= digits[i]) {
+    j -= 1;
+  }
+
+  const temp = digits[i];
+  digits[i] = digits[j];
+  digits[j] = temp;
+
+  let start = i + 1;
+  let end = digits.length - 1;
+  while (start < end) {
+    const temp1 = digits[start];
+    digits[start] = digits[end];
+    digits[end] = temp1;
+
+    start += 1;
+    end -= 1;
+  }
+
+  let result = 0;
+  for (let k = 0; k < digits.length; k += 1) {
+    result = result * 10 + digits[k];
+  }
+
+  return result;
 }
 
 module.exports = {
